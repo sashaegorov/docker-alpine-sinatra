@@ -6,4 +6,3 @@ class App < Sinatra::Base
     '<h1>Hello from Sinatra in Docker!</h1>'
   end
 end
-

@@ -1,6 +1,11 @@
-FROM base
+FROM ubuntu
 
-MAINTAINER tcnksm "https://github.com/tcnksm"
+MAINTAINER tcnksm "https://github.com/qatsi"
+
+# Debug
+RUN pwd
+RUN ls -l
+RUN whoami
 
 # Install packages for building ruby
 RUN apt-get update
@@ -10,12 +15,12 @@ RUN apt-get clean
 
 RUN wget -P /root/src http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.2.tar.gz
 RUN cd /root/src; tar xvf ruby-2.2.2.tar.gz
-RUN cd /root/src/ruby-2.2.2; ./configure; make install
+RUN cd /root/src/ruby-2.2.2 && ./configure && make install
 
 RUN gem update --system
 RUN gem install bundler
 
-RUN git clone https://github.com/tcnksm/docker-sinatra /root/sinatra
+RUN git clone https://github.com/qatsi/docker-sinatra /root/sinatra
 RUN cd /root/sinatra; bundle install
 
 EXPOSE 4567

@@ -1,7 +1,9 @@
-FROM ubuntu
+FROM debian:jessie
 
-MAINTAINER tcnksm "https://github.com/qatsi"
+MAINTAINER Qatsi "https://github.com/qatsi"
 
+COPY sinatra /root/sinatra
+RUN ls -lR /root
 # Debug
 RUN pwd
 RUN ls -l
@@ -20,7 +22,6 @@ RUN cd /root/src/ruby-2.2.2 && ./configure && make install
 RUN gem update --system
 RUN gem install bundler
 
-RUN git clone https://github.com/qatsi/docker-sinatra /root/sinatra
 RUN cd /root/sinatra; bundle install
 
 EXPOSE 4567

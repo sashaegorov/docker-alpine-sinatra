@@ -1,44 +1,45 @@
-# Runing a sinatra application on Docker
+# Runing tiny sinatra application on Docker
 
-This is sample project for running a sinatra application on Docker.
+This is sample project for running a Sinatra application on Docker on top minimal Alpine Linux image.
 
 ## Usage
 
 Create Image
 
 ```
-docker build -t sinatra .
+docker build --no-cache --force-rm --rm -t alpine-sinatra app/
 ```
 
 Run it !
 
 ```
-ID=$(docker run -p 4567:4567 -d sinatra)
+export SINARTA=$(docker run --rm -p 4567:4567 -d sinatra)
+echo ${SINARTA}
 ```
 
 You can access it from your browser, [http://localhost:4567/](http://localhost:4567/).
 
-Check logs. 
+Check logs.
 
 ```
-docker logs $ID
+docker logs $SINATRA
 ```
 
-Stop it. 
+Stop it.
 
 ```
-docker stop $ID
+docker stop $SINATRA
 ```
 
-Delete it. 
+Delete it.
 
 ```
-docker rm $ID
+docker rm $SINATRA
 ```
 
 ## OS X
 
-Use Vagrant. In `Vagrantfile`, just add port forwarding settings.
+Use Vagrant. In `Vagrantfile`, port forwarding setting included!
 
 ```
 vagrant up
@@ -54,5 +55,3 @@ vagrant ssh
 
 - [OSX, Vagrant, Docker, and Sinatra | DYLI.SH](http://dyli.sh/2013/08/23/OSX-Vagrant-Docker-Sinatra.html)
 - [Sinatra deployment with Docker](http://haanto.com/sinatra-deployment-with-docker/)
-
-

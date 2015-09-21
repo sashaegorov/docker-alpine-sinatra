@@ -13,13 +13,19 @@ docker build --no-cache --force-rm --rm -t alpine-sinatra app/
 Run it !
 
 ```
-export SINARTA=$(docker run --rm -p 4567:4567 -d sinatra)
+export SINARTA=$(docker run --rm -p 5678:5678 -d sinatra)
 echo ${SINARTA}
 ```
 
-You can access it from your browser, [http://localhost:4567/](http://localhost:4567/).
+You can access it from your browser, [http://localhost:5678/](http://localhost:5678/).
 
-Check logs.
+Endpoints:
+- `/env`
+- `/exit`
+- `/fail`
+- `/sleep[?seconds=3.5]`
+
+Check out logs.
 
 ```
 docker logs $SINATRA
@@ -49,6 +55,21 @@ and
 
 ```
 vagrant ssh
+```
+
+# Lattice
+You can run this in [Lattice](http://lattice.cf)
+
+```
+ltc create --run-as-root \
+--env RACK_ENV=production \
+--env FOO=fubar \
+--memory-mb 32 \
+--monitor-command 'ps auxww | grep "rackup.*puma" | grep -v grep' \
+--monitor-timeout "1s" \
+--instances 2 \
+alpine-sinatra sashaegorov/alpine-sinatra && \
+ltc list
 ```
 
 ## Reference

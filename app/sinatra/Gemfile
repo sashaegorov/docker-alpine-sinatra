@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
 gem 'foreman'
-gem 'sinatra'
 gem 'puma'
+gem 'sinatra'

@@ -13,17 +13,17 @@ docker build --no-cache --force-rm --rm -t alpine-sinatra app/
 Run it !
 
 ```
-export SINARTA=$(docker run --rm -p 5678:5678 -d sinatra)
-echo ${SINARTA}
+# Run container in sub-sheel
+export SINARTA=$(docker run -d -p 5678:5678 alpine-sinatra)
 ```
 
 You can access it from your browser, [http://localhost:5678/](http://localhost:5678/).
 
 Endpoints:
-- `/env`
-- `/exit`
-- `/fail`
-- `/sleep[?seconds=3.5]`
+- `/env` look Ma! Environment.
+- `/exit` send TERM signal to app i.e. exit correctly
+- `/fail` send KILL to app i.e. exit *incorrectly*
+- `/sleep[?seconds=3.5]` wait like a pro...
 
 Check out logs.
 
@@ -41,6 +41,12 @@ Delete it.
 
 ```
 docker rm $SINATRA
+```
+
+Clean up after it
+
+```
+docker images | grep '<none>' | awk '{print $3}' | xargs docker rmi -f
 ```
 
 ## OS X

@@ -21,6 +21,8 @@ You can access it from your browser, [http://localhost:5678/](http://localhost:5
 
 Endpoints:
 - `/env` look Ma! Environment.
+- `/disk` quick and dirty output of `df -h`
+- `/memory` output of `free -m`
 - `/exit` send TERM signal to app i.e. exit correctly
 - `/fail` send KILL to app i.e. exit *incorrectly*
 - `/sleep[?seconds=3.5]` wait like a pro...

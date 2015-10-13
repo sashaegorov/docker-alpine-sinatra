@@ -1,17 +1,28 @@
 require 'sinatra'
 require 'sinatra/base'
 
+# Alpine Sinatra application class
 class App < Sinatra::Base
   get '/' do
-    'Hello from Sinatra in Docker!'
+    'Hello from Alpine Sinatra in Docker!'
   end
 
   # Show environment info
   get '/env' do
-    'Environment:' +
+    'Environment:' \
     '<ul>' +
-    ENV.each.map { |k,v| "<li><strong>#{k}:</strong> #{v}</li>" }.join +
-    '</ul>'
+      ENV.each.map { |k, v| "<li><strong>#{k}:</strong> #{v}</li>" }.join +
+      '</ul>'
+  end
+
+  # Show disk info
+  get '/disk' do
+    "<strong>Disk:</strong><br/><pre>#{`df -h`}</pre>"
+  end
+
+  # Show memory info
+  get '/memory' do
+    "<strong>Memory:</strong><br/><pre>#{`free -m`}</pre>"
   end
 
   # Exit 'correctly'

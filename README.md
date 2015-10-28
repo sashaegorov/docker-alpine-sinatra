@@ -21,7 +21,7 @@ export SINARTA=$(docker run -d -p 5678:5678 alpine-sinatra)
 
 ```
 gem install rerun
-rerun 'rackup -s puma -p 5678 app/sinatra/config.ru'
+rerun bundle exec foreman start
 ```
 
 You can access it from your browser, [http://localhost:5678/](http://localhost:5678/).

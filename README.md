@@ -80,6 +80,15 @@ alpine-sinatra sashaegorov/alpine-sinatra && \
 ltc list
 ```
 
+## Playing with `curl`
+
+Here `http://localhost:5678/form` is default development URL if application was started with `rackup app/sinatra/config.ru`.
+
+```
+curl --form 'message=Hello world!✔︎' --form 'log=yes' http://localhost:5678/form
+Hello world!✔︎⏎
+```
+
 ## Reference
 
 - [OSX, Vagrant, Docker, and Sinatra | DYLI.SH](http://dyli.sh/2013/08/23/OSX-Vagrant-Docker-Sinatra.html)

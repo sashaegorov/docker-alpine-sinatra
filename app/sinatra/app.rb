@@ -3,6 +3,10 @@ require 'sinatra/base'
 
 # Alpine Sinatra application class
 class App < Sinatra::Base
+  configure do
+    enable :logging
+  end
+
   get '/' do
     'Hello from Alpine Sinatra in Docker!'
   end
@@ -44,5 +48,19 @@ class App < Sinatra::Base
     seconds = params[:seconds].to_f || 1.0
     sleep seconds
     "Wasted #{seconds} sec.<br/><strong>ProTip:</strong> use `/sleep?seconds=3`"
+  end
+
+  # Post form
+  get '/form' do
+    '<form action="/form" method="post">' \
+    '<input type="text" name="message"><br />' \
+    '<input type="checkbox" name="log">Show in log<br />' \
+    '<input type="submit"></form>'
+  end
+
+  # Post
+  post '/form' do
+    logger.info "#{params[:message]}" if params[:log]
+    params[:message]
   end
 end

@@ -4,17 +4,24 @@ This is sample project for running a Sinatra application on Docker on top minima
 
 ## Usage
 
-Create Image
+### Create Image
 
 ```
 docker build --no-cache --force-rm --rm -t alpine-sinatra app/
 ```
 
-Run it !
+Run in Docker
 
 ```
 # Run container in sub-sheel
 export SINARTA=$(docker run -d -p 5678:5678 alpine-sinatra)
+```
+
+… or run locally
+
+```
+gem install rerun
+rerun 'rackup -s puma -p 5678 app/sinatra/config.ru'
 ```
 
 You can access it from your browser, [http://localhost:5678/](http://localhost:5678/).
@@ -26,6 +33,7 @@ Endpoints:
 - `/exit` send TERM signal to app i.e. exit correctly
 - `/fail` send KILL to app i.e. exit *incorrectly*
 - `/sleep[?seconds=3.5]` wait like a pro...
+- `/form` simple form with POST method
 
 Check out logs.
 

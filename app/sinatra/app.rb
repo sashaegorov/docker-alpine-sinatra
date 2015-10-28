@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/base'
+require 'json'
 
 # Alpine Sinatra application class
 class App < Sinatra::Base
@@ -13,10 +14,13 @@ class App < Sinatra::Base
 
   # Show environment info
   get '/env' do
-    'Environment:' \
-    '<ul>' +
-      ENV.each.map { |k, v| "<li><strong>#{k}:</strong> #{v}</li>" }.join +
-      '</ul>'
+    if params[:json] == 'yes'
+      content_type :json
+      ENV.to_h.to_json
+    else
+      'Environment (as <a href="/env?json=yes">JSON</a>):<ul>' +
+        ENV.each.map { |k, v| "<li><b>#{k}:</b> #{v}</li>" }.join + '</ul>'
+    end
   end
 
   # Show disk info

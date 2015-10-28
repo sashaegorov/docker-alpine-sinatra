@@ -27,7 +27,7 @@ rerun 'rackup -s puma -p 5678 app/sinatra/config.ru'
 You can access it from your browser, [http://localhost:5678/](http://localhost:5678/).
 
 Endpoints:
-- `/env` look Ma! Environment.
+- `/env[?json=yes]` look Ma! Environment.
 - `/disk` quick and dirty output of `df -h`
 - `/memory` output of `free -m`
 - `/exit` send TERM signal to app i.e. exit correctly

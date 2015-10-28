@@ -1,6 +1,6 @@
 # Runing tiny sinatra application on Docker
 
-This is sample project for running a Sinatra application on Docker on top minimal Alpine Linux image.
+[Alpine Sinatra](https://hub.docker.com/r/sashaegorov/alpine-sinatra/) is sample project for running a Sinatra application in Docker on top minimal Alpine Linux image.
 
 ## Usage
 

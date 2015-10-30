@@ -4,7 +4,7 @@ export RACK_HOME="/app"
 export RACK_ENV="development"
 # Prerequisites
 apk -U add alpine-sdk openssl-dev ruby-dev openssl-dev
-apk -U add ruby ruby-bundler ruby-io-console bash
+apk -U add ruby ruby-bundler ruby-io-console
 echo 'gem: --no-document' > ~/.gemrc #http://stackoverflow.com/questions/1381725
 cd ${RACK_HOME} && \
 bundle install --clean --jobs=4 && \

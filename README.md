@@ -9,16 +9,16 @@
 ```
 docker build --no-cache --force-rm --rm -t alpine-sinatra app/
 ```
-
 Run in Docker
-
 ```
-# Run container in sub-sheel
-export SINARTA=$(docker run -d -p 5678:5678 alpine-sinatra)
+# Run container
+$export SINARTA=$(docker run -d -p 5678:5678 alpine-sinatra)
+# Check it's running
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+82d80f433583        alpine-sinatra      "foreman start -d /ap"   4 seconds ago       Up 3 seconds        0.0.0.0:5678->5678/tcp   hungry_lumiere
 ```
-
 … or run locally
-
 ```
 gem install rerun
 rerun bundle exec foreman start

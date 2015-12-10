@@ -1,6 +1,6 @@
 #!/bin/sh
 # Localy used variables
-export RACK_HOME="/app"
+export RACK_HOME="/sinatra"
 export RACK_ENV="development"
 # Prerequisites
 apk -U add alpine-sdk openssl-dev ruby-dev openssl-dev
@@ -12,4 +12,4 @@ gem clean
 # Mission completed
 apk -U --purge del alpine-sdk openssl-dev ruby-dev openssl-dev
 rm -vrf /var/cache/apk/*
-rm -v $0
+rm -v /prepare.sh

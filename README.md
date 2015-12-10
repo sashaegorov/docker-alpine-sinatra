@@ -7,7 +7,7 @@
 ### Create Image
 
 ```
-docker build --no-cache --force-rm --rm -t alpine-sinatra app/
+docker build --no-cache --force-rm --rm -t alpine-sinatra .
 ```
 Run in Docker
 ```

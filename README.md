@@ -1,30 +1,29 @@
-# Runing tiny sinatra application on Docker
+# Sinatra in Docker
 
 [Alpine Sinatra](https://hub.docker.com/r/sashaegorov/alpine-sinatra/) is sample project for running a Sinatra application in Docker on top minimal Alpine Linux image.
-
-## Usage
 
 ### Create Image
 
 ```
 docker build --no-cache --force-rm --rm -t alpine-sinatra .
 ```
-Run in Docker
+
+Run
 ```
 # Run container
-$export SINARTA=$(docker run -d -p 5678:5678 alpine-sinatra)
+export SINARTA=$(docker run -d -p 5678:5678 alpine-sinatra)
 # Check it's running
-$ docker ps
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
-82d80f433583        alpine-sinatra      "foreman start -d /ap"   4 seconds ago       Up 3 seconds        0.0.0.0:5678->5678/tcp   hungry_lumiere
+docker ps
 ```
+
 … or run locally (use another port if needed)
+
 ```
 gem install rerun
 rerun 'bundle exec rackup -o 0.0.0.0 -p 5678'
 ```
 
-You can access it from your browser, [http://localhost:5678/](http://localhost:5678/).
+Access it from your browser via [http://localhost:5678](http://localhost:5678).
 
 Endpoints:
 - `/env[?json=yes]` look Ma! Environment.
@@ -39,9 +38,10 @@ Check out logs.
 
 ```
 docker logs $SINATRA
+docker logs -f $SINATRA
 ```
 
-Stop it.
+Stop it (takes 10 seconds by default)
 
 ```
 docker stop $SINATRA
@@ -88,8 +88,3 @@ Here `http://localhost:5678/form` is default development URL if application was 
 curl --form 'message=Hello world!✔︎' --form 'log=yes' http://localhost:5678/form
 Hello world!✔︎⏎
 ```
-
-## Reference
-
-- [OSX, Vagrant, Docker, and Sinatra | DYLI.SH](http://dyli.sh/2013/08/23/OSX-Vagrant-Docker-Sinatra.html)
-- [Sinatra deployment with Docker](http://haanto.com/sinatra-deployment-with-docker/)

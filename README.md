@@ -18,10 +18,10 @@ $ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 82d80f433583        alpine-sinatra      "foreman start -d /ap"   4 seconds ago       Up 3 seconds        0.0.0.0:5678->5678/tcp   hungry_lumiere
 ```
-… or run locally
+… or run locally (use another port if needed)
 ```
 gem install rerun
-rerun bundle exec foreman start
+rerun 'bundle exec rackup -o 0.0.0.0 -p 5678'
 ```
 
 You can access it from your browser, [http://localhost:5678/](http://localhost:5678/).
@@ -59,6 +59,13 @@ Clean up after it
 docker images | grep '<none>' | awk '{print $3}' | xargs docker rmi -f
 ```
 
+Clean up all
+
+```
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -q)
+```
+
 ## OS X
 
 Use Vagrant. In `Vagrantfile`, port forwarding setting included!
@@ -71,21 +78,6 @@ and
 
 ```
 vagrant ssh
-```
-
-# Lattice
-You can run this in [Lattice](http://lattice.cf)
-
-```
-ltc create --run-as-root \
---env RACK_ENV=production \
---env FOO=fubar \
---memory-mb 32 \
---monitor-command 'ps auxww | grep "rackup.*puma" | grep -v grep' \
---monitor-timeout "1s" \
---instances 2 \
-alpine-sinatra sashaegorov/alpine-sinatra && \
-ltc list
 ```
 
 ## Playing with `curl`

@@ -1,0 +1,5 @@
+.git
+.gitignore
+.vagrant
+Vagrantfile
+.tags*

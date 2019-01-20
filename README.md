@@ -1,26 +1,31 @@
 # Sinatra in Docker
 
-[Alpine Sinatra](https://hub.docker.com/r/sashaegorov/alpine-sinatra/) is sample project for running a Sinatra application in Docker on top minimal Alpine Linux image.
+[Alpine Sinatra](https://hub.docker.com/r/sashaegorov/alpine-sinatra/) is tiny Sinatra application which runs in Docker on top minimalistic Alpine Linux image.
 
 ### Create Image
 
+Run and login into Vagrant box:
 ```
-docker build --no-cache --force-rm --rm -t alpine-sinatra .
+vagrant up && vagrant ssh  
+```
+After successful login:
+```  
+cd /vagrant/
+docker build --no-cache \
+ --force-rm --rm -t \
+ alpine-sinatra .
 ```
 
-Run
+Run and check
 ```
-# Run container
-export SINARTA=$(docker run -d -p 5678:5678 alpine-sinatra)
-# Check it's running
+docker run -d -p 5678:5678 alpine-sinatra
 docker ps
 ```
 
-… or run locally (use another port if needed)
+… or run locally (another port used to avoid conflicts)
 
 ```
-gem install rerun
-rerun 'bundle exec rackup -o 0.0.0.0 -p 5678'
+rerun 'bundle exec rackup -o 0.0.0.0 -p 5679'
 ```
 
 Access it from your browser via [http://localhost:5678](http://localhost:5678).
@@ -87,4 +92,16 @@ Here `http://localhost:5678/form` is default development URL if application was 
 ```
 curl --form 'message=Hello world!✔︎' --form 'log=yes' http://localhost:5678/form
 Hello world!✔︎⏎
+```
+
+## Commands
+
+```
+docker image inspect alpine-sinatra:latest --format='{{.Size}}'
+```
+
+### If thinks went wrong
+
+```
+docker run -ti -p 5678:5678 alpine-sinatra /bin/sh
 ```

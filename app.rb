@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/base'
 require 'json'
+require 'thin'
 
 # Alpine Sinatra application class
 class App < Sinatra::Base
@@ -14,12 +15,12 @@ class App < Sinatra::Base
 
   # Show environment info
   get '/env' do
-    if params[:json] == 'yes'
+    if params[:json] === 'yes'
       content_type :json
       ENV.to_h.to_json
     else
-      'Environment (as <a href="/env?json=yes">JSON</a>):<ul>' +
-        ENV.each.map { |k, v| "<li><b>#{k}:</b> #{v}</li>" }.join + '</ul>'
+      '<p>Environment (as <a href="/env?json=yes">JSON</a>):</p><ul>' +
+        ENV.each.map {|k, v| "<li><b>#{k}:</b> #{v}</li>"}.join + '</ul>'
     end
   end
 
@@ -35,9 +36,6 @@ class App < Sinatra::Base
 
   # Exit 'correctly'
   get '/exit' do
-    # /exit causes:
-    # 15:20:24 web.1  | Damn!
-    # 15:20:24 web.1  | exited with code 1
     Process.kill('TERM', Process.pid)
   end
 

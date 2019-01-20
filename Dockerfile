@@ -1,10 +1,12 @@
-FROM gliderlabs/alpine:latest
+FROM ruby:2.6-alpine
 MAINTAINER Alexander Egorov <a.a.egoroff@gmail.com>
 
 EXPOSE 5678
-ENV RACK_USER sinatra
-ENV RACK_ENV development
+ENV RACK_ENV production
+ENV RUBYOPT --jit
 
-COPY . /tmp
-RUN /tmp/prepare.sh
-CMD su ${RACK_USER} -c "rackup -o 0.0.0.0 -p 5678 -E ${RACK_ENV} /home/${RACK_USER}/config.ru"
+WORKDIR /app
+COPY . /app
+RUN /app/prepare.sh
+
+CMD bundler exec rackup -o 0.0.0.0 -p 5678 -E ${RACK_ENV}

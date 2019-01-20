@@ -1,6 +1,6 @@
 #!/bin/sh
 # Prerequisites
-apk add build-base gcc libssl1.0
+apk add build-base gcc libstdc++ libssl1.0
 cd /app
 gem install bundler
 bundle install --clean --deployment --without development --jobs=4

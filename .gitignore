@@ -1,6 +1,4 @@
-app/sinatra/Gemfile.lock
-app/sinatra/.bundle/
-app/sinatra/vendor/
 .vagrant/
-.tags*
+Vagrantfile
 .idea
+.ruby-version

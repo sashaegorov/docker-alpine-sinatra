@@ -2,5 +2,9 @@
 .gitignore
 .vagrant
 Vagrantfile
-.tags*
 .idea
+.ruby-version
+LICENSE
+Dockerfile
+.dockerignore
+README.md

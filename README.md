@@ -12,9 +12,11 @@ docker ps
 
 ```  
 docker build --no-cache \
- --force-rm --rm -t \
- alpine-sinatra .
+--force-rm --rm \
+--tag alpine-sinatra .
 ```
+
+Consider remove some options if you know how they works e.g. `--no-cache`, `--force-rm` and `--rm`.
 
 Run and check image
 ```

@@ -8,7 +8,7 @@ docker run -d -p 5678:5678 sashaegorov/docker-alpine-sinatra
 docker ps
 ``` 
 
-### How to create Image
+### How to create image locally
 
 ```  
 docker build --no-cache \
@@ -16,15 +16,10 @@ docker build --no-cache \
  alpine-sinatra .
 ```
 
-Run and check local image
+Run and check image
 ```
 docker run -d -p 5678:5678 alpine-sinatra
 docker ps
-```
-For development purposes you can run it locally (note another port is used to avoid conflicts)
-
-```
-rerun 'bundle exec rackup -o 0.0.0.0 -p 5679'
 ```
 
 If `Vagrant` is up and running, it is possible  to access application via forwarded port right in your [browser](http://localhost:5678). Check available endpoints:
@@ -36,11 +31,13 @@ If `Vagrant` is up and running, it is possible  to access application via forwar
 - [/sleep[?seconds=3.5]](http://localhost:5678/sleep?seconds=3.14) artificial delay 
 - [/form](http://localhost:5678/form) simple form with POST method
 
+Run `docker ps` to obtain container ID and export it e.g. `export SINATRA=2a3740f25d4b`
+
 Check out logs.
 
 ```
 docker logs $SINATRA
-docker logs -f $SINATRA
+docker logs -f $SINATRA # follow new logs
 ```
 
 Stop it (takes 10 seconds by default)
@@ -61,14 +58,26 @@ Clean up after it
 docker images | grep '<none>' | awk '{print $3}' | xargs docker rmi -f
 ```
 
-Clean up all
+Clean up all images
 
 ```
 docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 ```
 
-## If you are on macOSX
+Check image size
+```
+docker image inspect alpine-sinatra:latest --format='{{.Size}}'
+```
+
+For development purposes you can run it locally without Docker (note another port is used to avoid conflicts)
+
+```
+rerun 'bundle exec rackup -o 0.0.0.0 -p 5679'
+```
+
+
+### If you are on macOSX
 
 Just use Vagrant. Run and login into Vagrant box:
 ```
@@ -80,7 +89,7 @@ cd /vagrant
 ```
 Check `Vagrantfile` content for more information and configuration details.
 
-## Playing with `curl`
+### Playing with `curl`
 
 Here `http://localhost:5678/form` is default development URL if application was started with `rackup app/sinatra/config.ru`.
 
@@ -89,14 +98,12 @@ curl --form 'message=Hello world!✔︎' --form 'log=yes' http://localhost:5678/
 Hello world!✔︎⏎
 ```
 
-## Commands
-
-```
-docker image inspect alpine-sinatra:latest --format='{{.Size}}'
-```
-
 ### If things went wrong
+
+Login into Docker container:
 
 ```
 docker run -ti -p 5678:5678 alpine-sinatra /bin/sh
 ```
+
+And figure out what's wrong...

@@ -1,43 +1,40 @@
 # Sinatra in Docker
 
-[Alpine Sinatra](https://hub.docker.com/r/sashaegorov/alpine-sinatra/) is tiny Sinatra application which runs in Docker on top minimalistic Alpine Linux image.
+[Alpine Sinatra](https://hub.docker.com/r/sashaegorov/docker-alpine-sinatra) is a tiny Sinatra application which runs in Docker on top minimalistic Alpine Linux image.
 
-### Create Image
+### How to run it
+```
+docker run -d -p 5678:5678 sashaegorov/docker-alpine-sinatra
+docker ps
+``` 
 
-Run and login into Vagrant box:
-```
-vagrant up && vagrant ssh  
-```
-After successful login:
+### How to create Image
+
 ```  
-cd /vagrant/
 docker build --no-cache \
  --force-rm --rm -t \
  alpine-sinatra .
 ```
 
-Run and check
+Run and check local image
 ```
 docker run -d -p 5678:5678 alpine-sinatra
 docker ps
 ```
-
-… or run locally (another port used to avoid conflicts)
+For development purposes you can run it locally (note another port is used to avoid conflicts)
 
 ```
 rerun 'bundle exec rackup -o 0.0.0.0 -p 5679'
 ```
 
-Access it from your browser via [http://localhost:5678](http://localhost:5678).
-
-Endpoints:
-- `/env[?json=yes]` look Ma! Environment.
-- `/disk` quick and dirty output of `df -h`
-- `/memory` output of `free -m`
-- `/exit` send TERM signal to app i.e. exit correctly
-- `/fail` send KILL to app i.e. exit *incorrectly*
-- `/sleep[?seconds=3.5]` wait like a pro...
-- `/form` simple form with POST method
+If `Vagrant` is up and running, it is possible  to access application via forwarded port right in your [browser](http://localhost:5678). Check available endpoints:
+- [/env[?json=yes]](http://localhost:5678/env) environment details
+- [/disk](http://localhost:5678/disk) output of `df -h`
+- [/memory](http://localhost:5678/memory) output of `free -m`
+- [/exit](http://localhost:5678/exit) send TERM signal to app
+- [/fail](http://localhost:5678/fail) send KILL signal
+- [/sleep[?seconds=3.5]](http://localhost:5678/sleep?seconds=3.14) artificial delay 
+- [/form](http://localhost:5678/form) simple form with POST method
 
 Check out logs.
 
@@ -71,19 +68,17 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 ```
 
-## OS X
+## If you are on macOSX
 
-Use Vagrant. In `Vagrantfile`, port forwarding setting included!
-
+Just use Vagrant. Run and login into Vagrant box:
 ```
-vagrant up
+vagrant up && vagrant ssh  
 ```
-
-and
-
+After successful login:
 ```
-vagrant ssh
+cd /vagrant
 ```
+Check `Vagrantfile` content for more information and configuration details.
 
 ## Playing with `curl`
 
@@ -100,7 +95,7 @@ Hello world!✔︎⏎
 docker image inspect alpine-sinatra:latest --format='{{.Size}}'
 ```
 
-### If thinks went wrong
+### If things went wrong
 
 ```
 docker run -ti -p 5678:5678 alpine-sinatra /bin/sh

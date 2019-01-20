@@ -49,7 +49,7 @@ class App < Sinatra::Base
     # Just sleep...
     seconds = params[:seconds].to_f || 1.0
     sleep seconds
-    "Wasted #{seconds} sec.<br/><strong>ProTip:</strong> use `/sleep?seconds=3`"
+    "Delayed #{seconds} sec.<br/><strong>Tip:</strong> use `/sleep?seconds=3`"
   end
 
   # Post form

@@ -1,7 +1,11 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 at_exit do
-  puts 'Damn! It seems someone has visited `/exit`. Exiting...'
+  puts <<~M
+    Damn!
+    It seems someone has visited `/exit` or triggered TERM signal.
+    Exiting...
+  M
   exit false
 end
 
